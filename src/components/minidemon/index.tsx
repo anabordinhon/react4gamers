@@ -3,9 +3,18 @@ import { TILE_SIZE, HEAD_OFFSET, EDirection } from '../settings/constants';
 import './index.css';
 import useEnemyMoviment from '../../hooks/useEnemyMoviment';
 
-const Minidemon = () => {
+// const moviment ={
+//   position: { x:5, y:5},
+//   direction: EDirection.RIGHT,
+// };
 
-  const moviment = useEnemyMoviment({ x: 10, y: 5 });
+interface IProps{
+  initialPosition: {x:number, y:number}
+};
+
+const Minidemon = (props : IProps) => {
+
+  const moviment = useEnemyMoviment(props.initialPosition);
 
   return (
     <div
@@ -17,7 +26,7 @@ const Minidemon = () => {
         backgroundPosition: `0px -${TILE_SIZE - HEAD_OFFSET}px`,
         animation: 'mini-demon-animation 1s steps(4) infinite',
         position: 'absolute',
-        bottom: TILE_SIZE * moviment.position.y, //manipulando o hero
+        top: TILE_SIZE * moviment.position.y, //manipulando o hero
         left: TILE_SIZE * moviment.position.x, //manipulando o hero
         transform: `scaleX(${moviment.direction === EDirection.RIGHT ? 1 : -1})`,
         zIndex: 1

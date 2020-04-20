@@ -13,7 +13,7 @@ const Trap = () =>{
             //backgroundPosition: `0px -${TILE_SIZE - HEAD_OFFSET}px`,
             animation:'trap-animation 1s steps(8) infinite',
             position:"absolute",
-            bottom:TILE_SIZE * 8, //manipulando o hero
+            top:TILE_SIZE * 8, //manipulando o hero
             left:TILE_SIZE *9 //manipulando o hero
 
         }}

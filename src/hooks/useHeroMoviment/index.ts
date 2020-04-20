@@ -12,6 +12,9 @@ function useHeroMoviment(initialPosition) {
   useEventListener('keydown', (event: any) => {
     const direction = event.key;
     
+    if(direction.indexOf('Arrow')===-1){
+      return;
+    }
     const nextPosition = handleNextPosition(direction,positionState);
     updatePositionState(nextPosition);
     updateDirectionState(direction);

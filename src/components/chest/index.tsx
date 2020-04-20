@@ -13,7 +13,7 @@ const Chest = () =>{
             //backgroundPosition: `0px -${TILE_SIZE - HEAD_OFFSET}px`,
             animation:'chest-animation 1s steps(3) infinite',
             position:"absolute",
-            bottom:TILE_SIZE * 8, //manipulando o hero
+            top:TILE_SIZE * 8, //manipulando o hero
             left:TILE_SIZE *6 //manipulando o hero
 
         }}
