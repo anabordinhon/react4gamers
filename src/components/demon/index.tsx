@@ -1,24 +1,29 @@
 import React from 'react';
-import {TILE_SIZE, DEMON_TILE_SIZE} from '../settings/constants';
+import { TILE_SIZE, DEMON_TILE_SIZE, EDirection } from '../settings/constants';
 import './index.css';
+import useEnemyMoviment from '../../hooks/useEnemyMoviment';
 
-const Demon = () =>{
-    return(
-        <div 
-        style={{
-            width:DEMON_TILE_SIZE,
-            height:DEMON_TILE_SIZE,
-            backgroundImage:"url(./assets/DEMON.png)",
-            backgroundRepeat:'no-repeat', 
-            animation:'demon-animation 1s steps(4) infinite',
-            position:"absolute",
-            bottom:TILE_SIZE * 5, //manipulando o hero
-            left:TILE_SIZE *5 //manipulando o hero
+const Demon = () => {
+  const moviment = useEnemyMoviment({ x: 5, y: 5 });
 
-        }}
-        
-/>
-    );
+
+  return (
+    <div
+      style={{
+        width: DEMON_TILE_SIZE,
+        height: DEMON_TILE_SIZE,
+        backgroundImage: "url(./assets/DEMON.png)",
+        backgroundRepeat: 'no-repeat',
+        animation: 'demon-animation 1s steps(4) infinite',
+        position: "absolute",
+        bottom: TILE_SIZE * moviment.position.y, //manipulando o hero
+        left: TILE_SIZE * moviment.position.x, //manipulando o hero
+        transform: `scaleX(${moviment.direction === EDirection.RIGHT ? 1 : -1})`,
+        zIndex: 1
+      }}
+
+    />
+  );
 }
 
 export default Demon;
