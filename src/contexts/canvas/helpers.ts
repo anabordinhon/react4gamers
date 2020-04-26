@@ -1,4 +1,4 @@
-import { EDirection } from "../../components/settings/constants";
+import { EDirection, EWalker } from "../../components/settings/constants";
 import React from "react";
 
 export function handleNextPosition(direction,position) {
@@ -56,22 +56,35 @@ export const canvas =[
   [WL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,CH,FL,FL,FL,WL],
   [WL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,WL],
   [WL,FL,FL,FL,TR,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,WL],
-  [WL,HE,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,TR,FL,FL,WL],
+  [WL,HE,WL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,TR,FL,FL,WL],
   [WL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,FL,WL],
   [WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL,WL],
 ];
 
-export function checkValidMoviment(nextPosition){
+export function checkValidMoviment(nextPosition, walker){
   const canvasValue = canvas[nextPosition.y][nextPosition.x];
 
-  if (canvasValue === ECanvas.WALL){
-    return false;
+  const result = walker === EWalker.HERO 
+    ? getHeroValidMoves(canvasValue) 
+    : getEnemyValidMoves(canvasValue);
+  return result;
+}
+
+function getHeroValidMoves(canvasValue){
+  return{
+     valid: canvasValue === ECanvas.FLOOR || canvasValue === ECanvas.CHEST || canvasValue === ECanvas.TRAP || canvasValue === ECanvas.MINI_DEMON || canvasValue === ECanvas.DEMON,
+     chest : canvasValue === ECanvas.CHEST,
+     door : canvasValue === ECanvas.DOOR,
+     dead: canvasValue === ECanvas.TRAP || canvasValue === ECanvas.MINI_DEMON || canvasValue === ECanvas.DEMON
   }
-  if (canvasValue === ECanvas.CHEST){
-    console.log("PISOU NO BAU");
+}
+
+
+function getEnemyValidMoves(canvasValue){
+  return{
+    valid: canvasValue === ECanvas.FLOOR || canvasValue === ECanvas.HERO,
+    chest : false,
+    door : false,
+    dead: false
   }
-  if (canvasValue === ECanvas.TRAP){
-    console.log("PISOU NO TRAP");
-  }
-  return true;
 }

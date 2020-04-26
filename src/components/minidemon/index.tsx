@@ -26,7 +26,7 @@ const Minidemon = (props : IProps) => {
         backgroundPosition: `0px -${TILE_SIZE - HEAD_OFFSET}px`,
         animation: 'mini-demon-animation 1s steps(4) infinite',
         position: 'absolute',
-        top: TILE_SIZE * moviment.position.y, //manipulando o hero
+        top: TILE_SIZE * moviment.position.y - HEAD_OFFSET, //manipulando o hero
         left: TILE_SIZE * moviment.position.x, //manipulando o hero
         transform: `scaleX(${moviment.direction === EDirection.RIGHT ? 1 : -1})`,
         zIndex: 1
