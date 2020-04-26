@@ -3,14 +3,13 @@ import { TILE_SIZE, HEAD_OFFSET, EDirection } from '../settings/constants';
 import './index.css';
 import useHeroMoviment from '../../hooks/useHeroMoviment';
 
-const initialPosition = {
-  x: 8,
-  y: 3
+interface IProps{
+  initialPosition: {x:number, y:number}
 }
 
-const Hero = () => {
+const Hero = (props: IProps) => {
 
-  const { position, direction } = useHeroMoviment(initialPosition);
+  const { position, direction } = useHeroMoviment(props.initialPosition);
 
   return (
     <div
@@ -22,7 +21,7 @@ const Hero = () => {
         backgroundPosition: `0px -${TILE_SIZE - HEAD_OFFSET}px`,
         animation: 'hero-animation 1s steps(4) infinite',
         position: "absolute",
-        top: TILE_SIZE * position.y, //manipulando o hero
+        top: TILE_SIZE * position.y - HEAD_OFFSET, //manipulando o hero
         left: TILE_SIZE * position.x, //manipulando o hero
         transform: `scaleX(${direction === EDirection.RIGHT ? 1 : -1})`,
         zIndex: 1
