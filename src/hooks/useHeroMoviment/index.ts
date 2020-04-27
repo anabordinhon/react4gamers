@@ -1,7 +1,6 @@
 import useEventListener from '@use-it/event-listener';
 import React from 'react';
 import { EDirection, EWalker } from '../../components/settings/constants';
-import { handleNextPosition, checkValidMoviment } from '../../contexts/canvas/helpers';
 import { CanvasContext } from '../../contexts/canvas';
 import { ChestsContext } from '../../contexts/chests';
 
@@ -28,10 +27,15 @@ function useHeroMoviment(initialPosition) {
       updateDirectionState(direction);
     }
     if (moviment.nextMove.dead){
-     console.log('GAME OVER x.x !!')
+     alert('GAME OVER X.X !!')
+     window.location.reload();
     }
     if(moviment.nextMove.chest){
-      chestsContext.updateOpenedChests();
+      chestsContext.updateOpenedChests(moviment.nextPosition);
+    }
+    if(chestsContext.totalChests === chestsContext.openedChests.total && moviment.nextMove.door){
+      alert('WINNER!!!🏆🎖️');
+      window.location.reload();
     }
   });
 

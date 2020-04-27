@@ -21,6 +21,10 @@ function useEnemyMoviment(initialPosition) {
      updateDirectionState(randomDirection);
      updatePositionState(moviment.nextPosition);
      }
+     if(moviment.nextMove.dead){
+       alert('GAME OVER!!! X.X');
+       window.location.reload();
+     }
 
   },2000);
   return {
